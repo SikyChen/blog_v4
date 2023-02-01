@@ -1,30 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+import { RouterProvider } from 'react-router-dom';
+import router from './router';
 import './index.css'
-
-import { 
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
-
-import Article from './pages/Article';
-import Page404 from './pages/Page404';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/article/:id",
-    element: <Article />,
-  },
-  {
-    path: "*",
-    element: <Page404 />,
-  }
-]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
