@@ -1,0 +1,13 @@
+[
+  {
+    "id": "0",
+    "title": "如何发布一个NPM包",
+    "author": "SIKY",
+    "description": "当我们自己写了一个通用的 JavaScript 模块，想要分享出去给别人使用，一般都会把它作为 npm 包发布到官方仓库中，需要使用的时候再通过 `npm install xxx` 来安装即可。那么如何发布一个 npm 包呢？",
+    "crtime": 1675325474185,
+    "upTime": 1675325474185,
+    "tags": ["Node", "NPM"],
+    "path": "/blog/md/如何发布一个NPM包.md",
+    "pv": 12
+  }
+]

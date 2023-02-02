@@ -1,19 +1,32 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import gfm from '@bytemd/plugin-gfm';
 import highlight from '@bytemd/plugin-highlight';
 import frontmatter from '@bytemd/plugin-frontmatter';
 import { Viewer } from '@bytemd/react';
-import withMenu from '../../hoc/withMenu';
+import withMenu from '../../components/Menu/withMenu';
 import 'highlight.js/styles/default.css'
 import './../../assets/bytemd-plugin/themeStyle/smart-blue.css';
 import './../../assets/bytemd-plugin/highlightStyle/atom-one-light.css';
+import './style.css'
+import { Props } from '../../types';
 
-import { md } from './mock';
-
-function Article() {
+function Article(props: Props) {
 
   const params = useParams();
+  const [content, setContent] = useState('');
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    props.post('getArticle', { id: params.id })
+      .then((res: any) => {
+        console.log('res', res);
+        if (!res.data) {
+          setError(true);
+        }
+        setContent(res.data.content);
+      });
+  });
 
   const plugins = useMemo(() => {
     return [
@@ -21,18 +34,29 @@ function Article() {
       highlight(),
       frontmatter(),
     ]
-  }, [])
+  }, []);
+
+  function generateErrorMessage() {
+    if (!error) return null;
+    return <h3 style={{ margin: '20vh 0', textAlign: 'center' }}>文章不存在</h3>;
+  }
+
+  function generateViewer() {
+    if (!content) return null;
+    return (
+      <Viewer
+        value={content}
+        plugins={plugins}
+      />
+    )
+  }
 
   return (
     <div className="article">
-      <h1>详情页，id是{params.id}</h1>
-      <button>切换主题</button>
-      <Viewer
-        value={md}
-        plugins={plugins}
-      />
+      {generateErrorMessage()}
+      {generateViewer()}
     </div>
-  )
+  );
 }
 
 export default withMenu(Article);

@@ -1,6 +1,6 @@
 .editor {
-  padding: 0 10px;
+  padding: 0 1em;
 }
 .bytemd {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 8em);
 }

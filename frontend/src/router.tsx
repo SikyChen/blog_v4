@@ -1,28 +1,41 @@
-import React from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import { PublicProps } from './types';
 
-const App = React.lazy(() => import(`./App`));
-const Article = React.lazy(() => import(`./pages/Article`));
-const Edit = React.lazy(() => import(`./pages/Edit`));
-const Page404 = React.lazy(() => import(`./pages/Page404`));
-
-const router = createBrowserRouter([
+const routerConfigs = [
   {
     path: "/",
-    element: <App />,
+    element: lazy(() => import(`./App`)),
   },
   {
     path: "/article/:id",
-    element: <Article />,
+    element: lazy(() => import(`./pages/Article`)),
   },
   {
     path: "/article/edit",
-    element: <Edit />,
+    element: lazy(() => import(`./pages/Edit`)),
   },
   {
     path: "*",
-    element: <Page404 />,
+    element: lazy(() => import(`./pages/Page404`)),
   }
-]);
+]
 
-export default router;
+function generateRouters(routerConfigs: any, publicProps: PublicProps) {
+  if (!routerConfigs) return void 0;
+  return routerConfigs.map((config: any) => {
+    const Element = config.element;
+    const router = {
+      ...config,
+      element: <Element {...publicProps} />
+    }
+    if (config.children) {
+      router.children = generateRouters(config.children, publicProps);
+    }
+    return router;
+  })
+}
+
+export const getRouters = (publicProps: PublicProps ) => {
+  return createBrowserRouter(generateRouters(routerConfigs, publicProps));
+}

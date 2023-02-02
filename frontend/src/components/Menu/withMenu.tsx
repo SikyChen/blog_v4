@@ -1,5 +1,5 @@
 import React from 'react';
-import Menu from '../components/Menu';
+import Menu from '.';
 
 function withMenu(Component: React.ElementType) {
 
@@ -7,7 +7,7 @@ function withMenu(Component: React.ElementType) {
     return (
       <>
         <Menu></Menu>
-        <Component {...props} />
+        <Component className="page-with-menu" {...props} />
       </>
     );
   }

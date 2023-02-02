@@ -1,19 +1,26 @@
-import { useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Props } from './types';
 import './App.css';
 
-function App() {
+function App(props: Props) {
 
-  let [searchParams, setSearchParams] = useSearchParams();
-
-  function handleClick() {
-    setSearchParams({abc: Math.floor(Math.random() * 100) + ''})
+  const handleTest = () => {
+    props.post('test', { aa: 'bb' })
+      .then((res: Object) => {
+        console.log('res123', res);
+      });
   }
 
   return (
     <div className="App">
       <h1>首页</h1>
-      <div>参数abc的值为{searchParams.get('abc')}</div>
-      <button onClick={handleClick}>点一下</button>
+      <p>
+        <Link to="/article/1" className="margin-right-8">文章页</Link>
+        <Link to="/article/edit">编辑页</Link>
+      </p>
+      <p>
+        <button onClick={handleTest}>测试接口</button>
+      </p>
     </div>
   )
 }
