@@ -6,8 +6,10 @@ import frontmatter from '@bytemd/plugin-frontmatter';
 import { Viewer } from '@bytemd/react';
 import withMenu from '../../components/Menu/withMenu';
 import 'highlight.js/styles/default.css'
-import './../../assets/bytemd-plugin/themeStyle/smart-blue.css';
-import './../../assets/bytemd-plugin/highlightStyle/atom-one-light.css';
+import './../../assets/bytemd-css/themeStyle/smart-blue.css';
+import './../../assets/bytemd-css/themeStyle/github-markdown-dark.css';
+import './../../assets/bytemd-css/highlightStyle/atom-one-light.css';
+import './../../assets/bytemd-css/highlightStyle/atom-one-dark-reasonable.css';
 import './style.css'
 import { Props } from '../../types';
 

@@ -4,3 +4,9 @@
 .bytemd {
   height: calc(100vh - 8em);
 }
+
+@media (prefers-color-scheme: dark) {
+  .bytemd-preview {
+    background-color: #242424;
+  }
+}

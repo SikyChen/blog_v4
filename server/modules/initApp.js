@@ -12,8 +12,6 @@ async function readArticleList() {
       return map;
     }, {});
     console.log('读取目录成功');
-    console.log(global.articleList)
-    console.log(global.articleListMap)
   });
 }
 

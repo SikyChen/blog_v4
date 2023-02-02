@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
+const listJsonPath = path.join(__dirname, './../blog/list.json');
+const mdPath = path.join(__dirname, './../blog/md/');
+
 const apis = {
   test(content) {
     return {
@@ -12,7 +15,28 @@ const apis = {
 
   // 增
   async createArticle(content) {
-    return data;
+    const { info, content: articleContent } = content;
+
+    try {
+      info.fileName = `${info.title}.md`;
+      fs.writeFileSync(path.join(mdPath + info.fileName), articleContent);
+      const id = (Number(global.articleList[0]?.id || -1) + 1).toString();
+      info.id = id;
+      info.pv = 0;
+      global.articleList.unshift(info);
+      global.articleListMap[id] = info;
+      fs.writeFile(listJsonPath, JSON.stringify(global.articleList), (err) => {
+        console.error(err);
+      });
+
+      return { info };
+    } catch (error) {
+      console.error(error);
+      return {
+        data: null,
+        message: '保存失败',
+      }
+    }
   },
 
   // 删
@@ -33,23 +57,32 @@ const apis = {
 
   // 查
   async getArticle(content) {
-    const articleInfo = global.articleListMap[content.id];
+    const info = global.articleListMap[content.id];
 
-    if (!articleInfo) {
+    if (!info) {
       return {
         data: null,
         message: '文章不存在',
       }
     }
 
-    const articleContent = fs.readFileSync(path.join(__dirname, './../' + articleInfo.path));
+    const articleContent = fs.readFileSync(path.join(mdPath + info.fileName));
     return {
       data: {
         content: articleContent.toString(),
-        info: articleInfo,
+        info,
       },
       message: null,
     };
+  },
+
+  async getArticleList() {
+    return {
+      data: {
+        list: global.articleList,
+      },
+      message: null,
+    }
   },
 }
 

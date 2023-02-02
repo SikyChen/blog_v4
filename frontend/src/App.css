@@ -1,5 +1,26 @@
 .App {
-  padding: 10px;
+  padding: 1em;
   text-align: center;
   margin: 0 auto;
+}
+
+.logo-image {
+  margin: 0em auto 1em;
+  max-width: 50em;
+  height: 40vh;
+  background-image: url(./assets/image/balloon.jpeg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 0 -140px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.logo-image .title {
+  width: 100%;
+  display: block;
+  font-size: 3em;
+  height: 1em;
+  font-weight: 600;
 }
