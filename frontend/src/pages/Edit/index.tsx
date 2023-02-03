@@ -51,6 +51,7 @@ function Edit(props: Props) {
   const params = useParams();
   const navigate = useNavigate();
   const [content, setContent] = useState('');
+  const [oldContent, setOldContent] = useState('');
 
   useEffect(() => {
     initContent();
@@ -58,18 +59,27 @@ function Edit(props: Props) {
 
   async function initContent() {
     if (!params?.id) {
-      return setContent(articleFront);
+      setContent(articleFront);
+      setOldContent(articleFront);
+      return;
     };
     
     const res = await props.post('getArticle', { id: params.id });
     if (!res.data) {
       alert('文章不存在');
-      return setContent(articleFront);
+      setContent(articleFront);
+      setOldContent(articleFront);
+      return;
     }
     setContent(res.data.content);
+    setOldContent(res.data.content);
   }
 
   async function handleSave() {
+    if (content === oldContent) {
+      return alert('未做修改');
+    }
+
     const front = fm(content);
     let info: any = front.attributes;
 
@@ -107,7 +117,9 @@ function Edit(props: Props) {
       loading: true,
     });
 
-    navigate(`/article/${res.info.id}`);
+    setContent(newContent);
+    setOldContent(newContent);
+    navigate(`/admin/edit/${res.data.info.id}`);
   }
 
   function generateToolbar() {

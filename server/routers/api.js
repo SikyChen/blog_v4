@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const syncBlog = require('../modules/syncBlog');
 
-const listJsonPath = path.join(__dirname, './../blog/list.json');
-const mdPath = path.join(__dirname, './../blog/md/');
+const listJsonPath = path.join(__dirname, './../../blog_repo/list.json');
+const mdPath = path.join(__dirname, './../../blog_repo/md/');
 
 const apis = {
   test(content) {
@@ -20,34 +21,41 @@ const apis = {
 
       info.fileName = `${info.title}.md`;
 
-      // 改
-      const oldInfo = global.articleListMap[info.id];
-      if (oldInfo) {
-        if (oldInfo.title !== info.title) {
-          fs.renameSync(path.join(mdPath + oldInfo.fileName), path.join(mdPath + info.fileName));
+      try {
+        const oldInfo = global.articleListMap[info.id];
+        if (oldInfo) {
+          // 改
+          if (oldInfo.title !== info.title) {
+            fs.renameSync(path.join(mdPath + oldInfo.fileName), path.join(mdPath + info.fileName));
+          }
+          fs.writeFileSync(path.join(mdPath + info.fileName), articleContent);
+          global.articleList = global.articleList.map(article => article.id === info.id ? {...article, ...info} : article);
+          global.articleListMap[info.id] = info;
+        } else {
+          // 增
+          const id = (Number(global.articleList[0]?.id || -1) + 1).toString();
+          info.id = id;
+          info.pv = 0;
+          fs.writeFileSync(path.join(mdPath + info.fileName), articleContent);
+          global.articleList.unshift(info);
+          global.articleListMap[id] = info;
         }
-        fs.writeFileSync(path.join(mdPath + info.fileName), articleContent);
-        global.articleList = global.articleList.map(article => article.id === info.id ? info : article);
-        global.articleListMap[info.id] = info;
-      } else {
-        const id = (Number(global.articleList[0]?.id || -1) + 1).toString();
-        info.id = id;
-        info.pv = 0;
-        fs.writeFileSync(path.join(mdPath + info.fileName), articleContent);
-        global.articleList.unshift(info);
-        global.articleListMap[id] = info;
+      } catch (error) {
+        throw new Error('写入 md 文件失败');
       }
 
-      fs.writeFile(listJsonPath, JSON.stringify(global.articleList), (err) => {
-        console.error(err);
-      });
+      try {
+        fs.writeFileSync(listJsonPath, JSON.stringify(global.articleList));
+      } catch (error) {
+        throw new Error('同步 Json 目录文件失败');
+      }
 
-      return { info };
+      return { data: { info }, message: null };
     } catch (error) {
       console.error(error);
       return {
         data: null,
-        message: '保存失败',
+        message: error,
       }
     }
   },
@@ -62,7 +70,7 @@ const apis = {
       fs.writeFile(listJsonPath, JSON.stringify(global.articleList), (err) => {
         console.error(err);
       });
-      return { info };
+      return { data: { info }, message: null };
     } catch (error) {
       console.error(error);
       return {
@@ -101,6 +109,22 @@ const apis = {
       message: null,
     }
   },
+
+  // 同步到 github
+  async syncToGibhub() {
+    try {
+      await syncBlog();
+      return {
+        message: '同步成功',
+      }
+    } catch (error) {
+      console.error(error);
+      return {
+        message: '同步 github 失败',
+        error,
+      }
+    }
+  }
 }
 
 module.exports = function handleApi(ctx) {
