@@ -1,5 +1,14 @@
+import loadingStore from "../components/Loading/loadingStore";
 
-export const post = async (apiName: String, content: Object) => {
+interface postOptions {
+  loading?: boolean;
+}
+
+export const post = async (apiName: String, content: Object, { loading }: postOptions = {}) => {
+  if (loading) {
+    loadingStore.setLoading(true);
+  }
+
   const response = await fetch('/api', {
     method: 'post',
     body: JSON.stringify({
@@ -10,6 +19,10 @@ export const post = async (apiName: String, content: Object) => {
       'Content-Type': 'application/json',
     })
   });
+
+  if (loading) {
+    loadingStore.setLoading(false);
+  }
 
   if (response.status !== 200) {
     alert(`请求出错：${apiName}`);

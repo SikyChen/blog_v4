@@ -22,13 +22,12 @@ function Article(props: Props) {
   useEffect(() => {
     props.post('getArticle', { id: params.id })
       .then((res: any) => {
-        console.log('res', res);
         if (!res.data) {
-          setError(true);
+          return setError(true);
         }
         setContent(res.data.content);
       });
-  });
+  }, [params.id]);
 
   const plugins = useMemo(() => {
     return [

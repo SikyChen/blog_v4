@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import gfm from '@bytemd/plugin-gfm';
 import highlight from '@bytemd/plugin-highlight';
 import frontmatter from '@bytemd/plugin-frontmatter';
@@ -49,23 +49,33 @@ function abc() {
 function Edit(props: Props) {
 
   const params = useParams();
-  const [content, setContent] = useState(articleFront + mock);
+  const navigate = useNavigate();
+  const [content, setContent] = useState('');
 
-  const handleEditorChange = (value: string) => {
-    setContent(value);
-  }
-
-  const plugins = useMemo(() => {
-    return [
-      gfm(),
-      highlight(),
-      frontmatter(),
-    ]
+  useEffect(() => {
+    initContent();
   }, []);
 
-  const handleSave = async () => {
+  async function initContent() {
+    if (!params?.id) {
+      return setContent(articleFront);
+    };
+    
+    const res = await props.post('getArticle', { id: params.id });
+    if (!res.data) {
+      alert('文章不存在');
+      return setContent(articleFront);
+    }
+    setContent(res.data.content);
+  }
+
+  async function handleSave() {
     const front = fm(content);
     let info: any = front.attributes;
+
+    if (params?.id) {
+      info.id = params.id;
+    };
 
     // 校验
     if (!info) {
@@ -85,21 +95,19 @@ function Edit(props: Props) {
     }
     info.uptime = now;
 
-    if (info.tags) {
-      info.tags = info.tags.split(',');
-    }
-
     // 拼接新文本
     const newFrontMatter = `---\n${dump(info)}---\n\n`;
     const newContent = newFrontMatter + front.body;
 
     // 提交
-    const res = await props.post('createArticle', {
+    const res = await props.post('updateArticle', {
       info,
       content: newContent,
+    }, {
+      loading: true,
     });
-    console.log('res', res);
-    setContent(newContent);
+
+    navigate(`/article/${res.info.id}`);
   }
 
   function generateToolbar() {
@@ -109,6 +117,18 @@ function Edit(props: Props) {
       </div>
     )
   }
+
+  function handleEditorChange(value: string) {
+    setContent(value);
+  }
+
+  const plugins = useMemo(() => {
+    return [
+      gfm(),
+      highlight(),
+      frontmatter(),
+    ]
+  }, []);
 
   return (
     <div className="editor">

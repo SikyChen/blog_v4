@@ -1,21 +1,28 @@
-import { Link, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Props } from './types';
 import './App.css';
 import List from './pages/List';
-import withMenu from './components/Menu/withMenu';
+import imgUrl from './assets/image/balloon.jpeg';
 
 function App(props: Props) {
+  let location = useLocation();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    setIsAdmin(location.pathname === '/admin');
+  }, []);
 
   return (
     <div className="App">
-      {/* <p>
-        <Link to="/article/0" className="margin-right-8">文章页</Link>
-        <Link to="/article/edit">编辑页</Link>
-      </p> */}
-      <div className="logo-image">
-        <div className="title">SIKY的小站</div>
-      </div>
-      <List {...props} />
+        <div className="logo-image">
+          <img src={imgUrl} />
+          <div className="title">SIKY的小站</div>
+        </div>
+        <div className="new-button-wrap">
+          {isAdmin && <Link to="/admin/edit"><button>new</button></Link>}
+        </div>
+        <List {...props} isAdmin={isAdmin} />
     </div>
   )
 }

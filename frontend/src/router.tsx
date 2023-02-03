@@ -12,7 +12,15 @@ const routerConfigs = [
     element: lazy(() => import(`./pages/Article`)),
   },
   {
-    path: "/article/edit",
+    path: "/admin/",
+    element: lazy(() => import(`./App`)),
+  },
+  {
+    path: "/admin/edit",
+    element: lazy(() => import(`./pages/Edit`)),
+  },
+  {
+    path: "/admin/edit/:id",
     element: lazy(() => import(`./pages/Edit`)),
   },
   {

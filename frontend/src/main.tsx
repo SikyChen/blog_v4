@@ -1,14 +1,14 @@
-import { StrictMode, Suspense } from 'react'
+import { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { Link, Router, RouterProvider } from 'react-router-dom';
+import {  RouterProvider } from 'react-router-dom';
 import { getRouters } from './router';
 import './index.css'
 import { post } from './tools/http';
+import Loading from './components/Loading';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
-    <Suspense>
-      <RouterProvider router={getRouters({ post })} />
-    </Suspense>
-  </StrictMode>,
+  <Suspense>
+    <Loading />
+    <RouterProvider router={getRouters({ post })} />
+  </Suspense>
 )
