@@ -16,5 +16,8 @@ async function readArticleList() {
 }
 
 module.exports = async function initApp () {
+  global.articleList = [];
+  global.articleListMap = {};
+  
   readArticleList();
 }
