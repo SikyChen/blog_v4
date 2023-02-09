@@ -33,7 +33,7 @@ function App(props: Props) {
     <div className="App">
       <div className="logo-image">
         <img src={imgUrl} />
-        <div className="title">SIKY的小站</div>
+        <div className="title">SIKY BLOG</div>
       </div>
       {generateAdminButton()}
       <List {...props} isAdmin={isAdmin} />

@@ -14,4 +14,5 @@ yarn
 pwd
 
 # 启动
+echo "yarn fullstart"
 yarn fullstart
