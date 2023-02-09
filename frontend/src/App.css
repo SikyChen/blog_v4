@@ -10,7 +10,7 @@
 .logo-image {
   position: relative;
   margin: 0em auto 1em;
-  max-width: 80em;
+  max-width: 70em;
   max-height: 40vh;
   overflow: hidden;
 }
@@ -33,7 +33,7 @@
 
 .new-button-wrap {
   margin: 0em auto 1em;
-  max-width: 80em;
+  max-width: 70em;
   text-align: right;
 }
 

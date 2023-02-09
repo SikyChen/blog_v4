@@ -1,40 +1,59 @@
 .list {
-  max-width: 80em;
-  margin: 0 auto 10em;
+  max-width: 70em;
+  margin: 0 auto 4em;
   padding: 0;
   text-align: left;
 }
 
 .list-item {
+  position: relative;
   display: block;
-  border: 1px solid #6f5c71;
-  border-radius: 4px;
-  margin-bottom: 1em;
-  padding: .5em 1em;
-  /* color: rgb(246, 237, 252); */
+  padding: 2.5em 0;
+  border-bottom: 1px dashed #ccc;
 }
 
-.list-title {
-  display: block;
-  font-size: 1.4em;
-  padding: .5em 0;
+.list-item:first-of-type {
+  border-top: 1px dashed #ccc;
 }
 
-.list-description {
-  font-size: .9em;
-  padding: .5em 0;
-}
-
-.list-foot {
+.list-head {
   font-size: .8em;
-  padding: .5em 0;
+  padding: .6em 0;
   display: flex;
   justify-content: space-between;
 }
 
-.list-foot a {
-  margin-left: 8px;
+.list-head .list-time {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.edit-buttons {
+  position: absolute;
+  top: .5em;
+  right: 0;
+  text-align: right;
+}
+
+.edit-buttons a {
+  margin-left: 0.5em;
   cursor: pointer;
+}
+
+.list-title {
+  line-height: 1.4em;
+  font-size: 1.6em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.list-title:hover {
+  text-decoration: underline;
+}
+
+.list-description {
+  font-size: 1em;
+  padding: .5em 0;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -29,7 +29,7 @@ function List(props: Props) {
     if (!props.isAdmin) return null;
     return (
       <div className="edit-buttons">
-        <Link to={`/admin/edit/${item.id}`}>编辑</Link>
+        <Link target="_blank" to={`/admin/edit/${item.id}`}>编辑</Link>
         <a onClick={() => handleDelete(item)}>删除</a>
       </div>
     )
@@ -38,12 +38,12 @@ function List(props: Props) {
   function generateItem(item: any) {
     return (
       <div key={item.id} className="list-item">
-        <Link to={`/article/${item.id}`} className="list-title">{item.title}</Link>
-        <div className="list-description">{item.description}</div>
-        <div className="list-foot">
-          <span>{new Date(item.crtime).toLocaleString()}</span>
-          {generateAdminButtons(item)}
+        {generateAdminButtons(item)}
+        <div className="list-head">
+          <span className="list-time">{new Date(item.crtime).toLocaleString()}</span>
         </div>
+        <div className="list-title"><Link to={`/article/${item.id}`}>{item.title}</Link></div>
+        <div className="list-description">{item.description}</div>
       </div>
     );
   }
