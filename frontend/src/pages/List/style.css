@@ -9,11 +9,11 @@
   position: relative;
   display: block;
   padding: 2.5em 0;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed #ddd;
 }
 
 .list-item:first-of-type {
-  border-top: 1px dashed #ccc;
+  border-top: 1px dashed #ddd;
 }
 
 .list-head {
@@ -54,10 +54,4 @@
 .list-description {
   font-size: 1em;
   padding: .5em 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  .list-item {
-    border: 1px solid #6f5c71;
-  }
 }

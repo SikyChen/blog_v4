@@ -20,10 +20,11 @@
 }
 
 a {
-  color: #535bf2;
+  color: #fff;
   text-decoration: inherit;
   transition: .2s;
 }
+
 a:hover {
   text-decoration: underline;
 }
@@ -69,8 +70,8 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    /* color: #747bff; */
+  a {
+    color: #535bf2;
   }
   button {
     background-color: #646cff;
