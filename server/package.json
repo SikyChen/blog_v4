@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon index.js",
-    "fullstart": "PRODUCTION_PORT=80 pm2 start index.js"
+    "fullstart": "PRODUCTION_PORT=80 pm2 start index.js --name blog_v4_80"
   },
   "dependencies": {
     "koa": "^2.14.1",
