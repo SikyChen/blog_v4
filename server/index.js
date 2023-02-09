@@ -17,7 +17,7 @@ app.keys = ['today is a good day', 'what is that'];
 // 静态资源
 app.use(
   static(path.join(__dirname + '/public'), {
-    maxage: 18000
+    maxage: 1000 * 60 * 60 * 24,
   })
 );
 
@@ -29,7 +29,10 @@ app.use(router.routes()).use(router.allowedMethods());
 
 // 非接口及静态资源，则返回主页 index.html
 app.use(async function(ctx, next) {
-  await send(ctx, 'index.html', { root: __dirname + '/public' } );
+  await send(ctx, 'index.html', {
+    root: __dirname + '/public',
+    maxage: 1000 * 60 * 60 * 24,
+  } );
 });
 
 initApp();
