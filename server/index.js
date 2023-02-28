@@ -9,7 +9,9 @@ const initApp = require('./modules/initApp');
 
 const app = new Koa();
 
-const port = process.env.PRODUCTION_PORT || 5174;
+const PORT = process.env.PRODUCTION_PORT || 5174;
+const APP_KEY = process.env.APP_KEY;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // 用于加密cookie，防止篡改
 app.keys = ['today is a good day', 'what is that'];
@@ -37,6 +39,6 @@ app.use(async function(ctx, next) {
 
 initApp();
 
-app.listen(port, () => {
-  console.log('>>> Server Listen In: ' + port);
+app.listen(PORT, () => {
+  console.log('>>> Server Listen In: ' + PORT);
 });

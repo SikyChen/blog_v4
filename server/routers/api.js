@@ -5,6 +5,9 @@ const syncBlog = require('../modules/syncBlog');
 const listJsonPath = path.join(__dirname, './../../blog_repo/list.json');
 const mdPath = path.join(__dirname, './../../blog_repo/md/');
 
+const USERNAME = process.env.USERNAME;
+const PASSWORD = process.env.PASSWORD;
+
 const apis = {
   test(content) {
     return {
@@ -14,6 +17,19 @@ const apis = {
     }
   },
 
+  async login(content, ctx) {
+    return {}
+  },
+
+  async logout(content) {
+
+  },
+
+  async getUser(content) {
+
+  },
+
+  // 增、改
   async updateArticle(content) {
     const { info, content: articleContent } = content;
 
@@ -101,6 +117,7 @@ const apis = {
     };
   },
 
+  // 查
   async getArticleList() {
     return {
       data: {
@@ -130,7 +147,7 @@ const apis = {
 module.exports = function handleApi(ctx) {
   let { apiName, content } = ctx.request.body;
   if (apiName && apis[apiName]) {
-    return apis[apiName].bind(ctx)(content);
+    return apis[apiName](content, ctx);
   } else {
     throw Error(`[错误] { apiName: '${apiName}' }, 找不到此 apiName`);
   }

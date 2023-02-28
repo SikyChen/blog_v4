@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Props } from './types';
 import './App.css';
 import List from './pages/List';
-import imgUrl from './assets/image/balloon.jpeg';
 
 function App(props: Props) {
   let location = useLocation();
@@ -32,7 +31,6 @@ function App(props: Props) {
   return (
     <div className="App">
       <div className="logo-image">
-        <img src={imgUrl} />
         <div className="title">SIKY BLOG</div>
       </div>
       {generateAdminButton()}

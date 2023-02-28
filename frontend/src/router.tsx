@@ -13,15 +13,21 @@ const routerConfigs = [
   },
   {
     path: "/admin/",
-    element: lazy(() => import(`./App`)),
-  },
-  {
-    path: "/admin/edit",
-    element: lazy(() => import(`./pages/Edit`)),
-  },
-  {
-    path: "/admin/edit/:id",
-    element: lazy(() => import(`./pages/Edit`)),
+    element: lazy(() => import(`./Admin`)),
+    children: [
+      {
+        path: "/admin/",
+        element: lazy(() => import(`./App`)),
+      },
+      {
+        path: "/admin/edit",
+        element: lazy(() => import(`./pages/Edit`)),
+      },
+      {
+        path: "/admin/edit/:id",
+        element: lazy(() => import(`./pages/Edit`)),
+      },
+    ]
   },
   {
     path: "*",
