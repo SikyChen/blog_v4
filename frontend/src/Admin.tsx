@@ -1,20 +1,35 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import Login from './pages/Login';
 import { Props } from './types';
 
 function App(props: Props) {
 
+  const [ admin, setAdmin ] = useState('');
+
   useEffect(() => {
-    login();
+    getUser();
   })
 
-  async function login() {
-    const res = await props.post('login', { user: 'sikychen', pwd: 'libolibo521' }, { loading: true});
+  async function getUser() {
+    const res = await props.post('getUser', null, { loading: true});
+    if (res.message) {
+      return setAdmin('0');
+    }
+    if (res.data?.admin === '1') {
+      setAdmin('1');
+    }
+  }
+
+  const loginProps = {
+    ...props,
+    setAdmin,
   }
 
   return (
     <div className="admin">
-      <Outlet />
+      {admin === '1' && <Outlet />}
+      {admin === '0' && <Login {...loginProps}/>}
     </div>
   )
 }

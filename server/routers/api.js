@@ -18,15 +18,33 @@ const apis = {
   },
 
   async login(content, ctx) {
-    return {}
+    if (content.user === USERNAME && content.pwd === PASSWORD) {
+      const data = {
+        user: content.user,
+        admin: '1',
+      }
+      ctx.cookies.set('name', content.user, { signed: true });
+      return { data, message: null };
+    } else {
+      return { data: null, message: '用户名或密码错误' };
+    }
   },
 
-  async logout(content) {
-
+  async logout(content, ctx) {
+    ctx.cookies.set('name', null, { signed: true });
+    return { data: 'success', message: null };
   },
 
-  async getUser(content) {
-
+  async getUser(content, ctx) {
+    if (ctx.cookies.get('name') === USERNAME) {
+      const data = {
+        user: USERNAME,
+        admin: '1',
+      }
+      return { data, message: null };
+    } else {
+      return { data: null, message: '未登录' };
+    }
   },
 
   // 增、改

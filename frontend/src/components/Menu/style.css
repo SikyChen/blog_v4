@@ -4,13 +4,23 @@
   line-height: 3em;
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+  background-color: #242424;
 }
 .menu .logo {
   font-size: 1.2em;
-  font-weight: 500;
-  color: #646cff;
+  font-weight: bold;
+  color: #306fc6;
   text-decoration: inherit;
 }
 .menu .logo:hover {
   color: #535bf2;
+}
+
+@media (prefers-color-scheme: light) {
+  .menu {
+    background-color: rgba(255,255,255,0.8);
+  }
 }

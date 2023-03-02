@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config({ path: './.env' });
+
 const Koa = require('koa');
 const path = require('path');
 const static = require('koa-static');
@@ -10,11 +13,11 @@ const initApp = require('./modules/initApp');
 const app = new Koa();
 
 const PORT = process.env.PRODUCTION_PORT || 5174;
-const APP_KEY = process.env.APP_KEY;
-const JWT_SECRET = process.env.JWT_SECRET;
+const APP_KEY_1 = process.env.APP_KEY_1;
+const APP_KEY_2 = process.env.APP_KEY_2;
 
 // 用于加密cookie，防止篡改
-app.keys = ['today is a good day', 'what is that'];
+app.keys = [ APP_KEY_1, APP_KEY_2 ];
 
 // 静态资源
 app.use(
