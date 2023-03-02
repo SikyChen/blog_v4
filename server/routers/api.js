@@ -5,8 +5,8 @@ const syncBlog = require('../modules/syncBlog');
 const listJsonPath = path.join(__dirname, './../../blog_repo/list.json');
 const mdPath = path.join(__dirname, './../../blog_repo/md/');
 
-const USERNAME = process.env.USERNAME;
-const PASSWORD = process.env.PASSWORD;
+const USERNAME = process.env.BLOG_USERNAME;
+const PASSWORD = process.env.BLOG_PASSWORD;
 
 const apis = {
   test(content) {
