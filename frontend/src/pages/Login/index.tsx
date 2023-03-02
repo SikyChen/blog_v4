@@ -21,7 +21,7 @@ export default function Login(props: Props) {
     }
   }
 
-  const handlePwdKeyDown = (event: KeyboardEvent) => {
+  const handlePwdKeyDown = (event: any) => {
     console.log('event', event);
     if (event.keyCode === 13 || event.key === 'Enter') {
       handleLogin();
