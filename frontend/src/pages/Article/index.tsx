@@ -12,6 +12,7 @@ import './../../assets/bytemd-css/highlightStyle/atom-one-light.css';
 import './../../assets/bytemd-css/highlightStyle/atom-one-dark-reasonable.css';
 import './style.css'
 import { Props } from '../../types';
+import { resetPageTitle, setPageTitle } from '../../tools/common';
 
 function Article(props: Props) {
 
@@ -26,7 +27,11 @@ function Article(props: Props) {
           return setError(true);
         }
         setContent(res.data.content);
+        setPageTitle(res.data.info.title);
       });
+    return () => {
+      resetPageTitle();
+    }
   }, [params.id]);
 
   const plugins = useMemo(() => {
