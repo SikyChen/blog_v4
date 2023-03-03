@@ -1,16 +1,14 @@
 .App {
-  padding: 1em;
-  margin: 0 auto;
-
-  background-image: linear-gradient(90deg, rgba(60, 10, 30, 0.04) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(60, 10, 30, 0.04) 3%, rgba(0, 0, 0, 0) 3%);
-  background-size: 20px 20px;
-  background-position: center center;
+  padding: 0 1em;
+  margin: 1em auto;
+  max-width: 50em;
+  border-radius: 6px;
+  background-color: #242424;
 }
 
 .logo-image {
   position: relative;
   margin: 0em auto 1em;
-  max-width: 50em;
   max-height: 40vh;
   height: 30vh;
   overflow: hidden;
@@ -38,12 +36,17 @@
 }
 
 .new-button-wrap {
-  margin: 0em auto 1em;
-  max-width: 50em;
+  padding: 1em 0;
   display: flex;
   justify-content: space-between;
 }
 
 .new-button-wrap a {
   color: aliceblue;
+}
+
+@media (prefers-color-scheme: light) {
+  .App {
+    background-color: #fff;
+  }
 }

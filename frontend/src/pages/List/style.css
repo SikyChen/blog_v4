@@ -1,6 +1,4 @@
 .list {
-  max-width: 50em;
-  margin: 0 auto 4em;
   padding: 0;
   text-align: left;
 }
@@ -12,8 +10,8 @@
   border-bottom: 1px dashed #ddd;
 }
 
-.list-item:first-of-type {
-  border-top: 1px dashed #ddd;
+.list-item:last-of-type {
+  border-bottom: none;
 }
 
 .list-head {

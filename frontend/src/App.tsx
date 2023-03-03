@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Props } from './types';
 import './App.css';
 import List from './pages/List';
+import withMenu from './components/Menu/withMenu';
 
 function App(props: Props) {
 
@@ -42,13 +43,13 @@ function App(props: Props) {
 
   return (
     <div className="App">
-      <div className="logo-image">
+      {/* <div className="logo-image">
         <div className="title">SIKY BLOG</div>
-      </div>
+      </div> */}
       {generateAdminButton()}
       <List {...props} isAdmin={isAdmin} />
     </div>
   )
 }
 
-export default App;
+export default withMenu(App);

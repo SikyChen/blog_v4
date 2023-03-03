@@ -124,7 +124,7 @@ function Edit(props: Props) {
 
   function generateToolbar() {
     return (
-      <div className="margin-bottom-8 text-right">
+      <div className="editor-toolbar">
         <button onClick={handleSave}>保存</button>
       </div>
     )
@@ -143,13 +143,15 @@ function Edit(props: Props) {
   }, []);
 
   return (
-    <div className="editor">
+    <div className="editor-page">
       {generateToolbar()}
-      <Editor
-        value={content}
-        plugins={plugins}
-        onChange={handleEditorChange}
-      />
+      <div className="editor-wrapper">
+        <Editor
+          value={content}
+          plugins={plugins}
+          onChange={handleEditorChange}
+        />
+      </div>
     </div>
   )
 }

@@ -1,8 +1,18 @@
-.editor {
+.editor-page {
   padding: 0 1em;
 }
+.editor-toolbar {
+  position: fixed;
+  top: 8px;
+  right: 15px;
+  z-index: 999999;
+  text-align: right;
+}
+.editor-wrapper {
+  margin-top: 1em;
+}
 .bytemd {
-  height: calc(100vh - 8em);
+  height: calc(100vh - 5em);
 }
 
 @media (prefers-color-scheme: dark) {

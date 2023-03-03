@@ -1,5 +1,15 @@
 .article {
   max-width: 50em;
-  margin: 0 auto 10em;
-  padding: 0 1em;
+  margin: 1em auto 1em;
+  padding: 1em;
+  background-color: #242424;
+  border-radius: 6px;
 }
+
+@media (prefers-color-scheme: light) {
+  .article {
+    padding: 2px 1em;
+    background-color: #fff;
+  }
+}
+
